@@ -1,7 +1,8 @@
 var config = {
     type: Phaser.AUTO,
-    width: 800,
-    height: 600,
+    width: window.innerWidth,
+    height: window.innerHeight,
+    backgroundColor : '#ffd700',
     physics: {
         default: 'arcade',
         arcade: {
@@ -22,13 +23,16 @@ var cursors;
 
 function preload () {
     //on preload le fichier image du joueur
-    this.load.spritesheet('hero', '../images/hero.png', {frameWidth: 64, frameHeight: 64});    
+    this.load.spritesheet('hero', '../images/hero.png', {frameWidth: 64, frameHeight: 64});
+    this.load.spritesheet('earth', '../images/sprite.png', {frameWidth: 64, frameHeight: 64});    
 }
 
 function create () {
 
     player = this.physics.add.sprite(100,100, 'hero');
     player.setCollideWorldBounds(true);
+    
+    cursors = this.input.keyboard.createCursorKeys(); 
 
     this.anims.create({
         key: 'turn',
@@ -44,7 +48,7 @@ function create () {
         repeat: -1
     });
 
-    //animation du joueur se déplaçant à droite
+    //animation du joueur se déplaçant à DROITE
     this.anims.create({
         key: 'right',
         frames: this.anims.generateFrameNumbers('hero', { start: 28, end: 37 }),
@@ -68,15 +72,14 @@ function create () {
         repeat: -1
     });
     
-    cursors = this.input.keyboard.createCursorKeys();    
 }
 
 function update () {    
 
-    // action lorsque la fleche de gauche est enfoncée
+    // action lorsque la fleche de GAUCHE est enfoncée
     if (cursors.left.isDown) {
         player.setVelocityX(-160);
-        player.anims.play('left', true);
+        player.anims.play('left', true);   
 
     // action lorsque la fleche de droite est enfoncée
     } else if (cursors.right.isDown) {
@@ -95,10 +98,12 @@ function update () {
 
     } else {
         player.setVelocityX(0);
+        player.setVelocityY(0);
         player.anims.play('turn');
 
     } if (cursors.up.isDown && player.body.touching.down){
-        player.setVelocityY(-330);
+        player.setVelocityY(0);
     }
-    
+
+   
 }
