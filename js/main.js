@@ -1,12 +1,15 @@
+var screenWidth = window.innerWidth;
+var screenHeight = window.innerHeight;
+
 var config = {
     type: Phaser.AUTO,
-    width: window.innerWidth,
-    height: window.innerHeight,
-    backgroundColor : '#5ED5D8',
+    width: screenWidth,
+    height: screenHeight,
+    backgroundColor : '#5fd5e8',
     physics: {
         default: 'arcade',
         arcade: {
-            debug: true
+            debug: false
         }
     },
     scene: {
@@ -16,26 +19,27 @@ var config = {
     }
 };
 
-
 //instancier un nouveau jeu
 var game = new Phaser.Game(config);
 var player;
+var players = [];
 var cursors;
 var scene;
 
-function preload () {
-    //on preload le fichier image du joueur
-    this.load.spritesheet('tiles', '../images/sprite.png', {frameWidth: 269, frameHeight: 268});
-    this.load.json('map', 'json/map.json');
+function preload () 
+{
+
+    this.load.json('map', '../json/map.json');
+    //fichier image du joueur
+    this.load.spritesheet('tiles', '../images/sprite.png', {frameWidth: 64, frameHeight: 64});
+    //fichier image du monde
     this.load.spritesheet('hero', '../images/hero.png', {frameWidth: 64, frameHeight: 64});    
 }
 
 function create () {
 
-    scene = this;
+    scene = this;    
     
-    player = this.physics.add.sprite(100,100, 'hero');
-    player.setCollideWorldBounds(true);
     
     cursors = this.input.keyboard.createCursorKeys(); 
 
@@ -78,7 +82,11 @@ function create () {
     });
     
     buildMap();
+    player = this.game.add.object(100,100, 'hero');
+    player.setCollideWorldBounds(true);
+    this.cameras.main.setSize(screenWidth, screenHeight);
 }
+
 function buildMap ()
 {
     //  Parse the data out of the map
@@ -87,16 +95,16 @@ function buildMap ()
     var tilewidth = data.tilewidth;
     var tileheight = data.tileheight;
 
-    tileWidthHalf = tilewidth;
-    tileHeightHalf = tileheight;
+    tileWidthHalf = tilewidth / 2;
+    tileHeightHalf = tileheight / 2;
 
     var layer = data.layers[0].data;
 
     var mapwidth = data.layers[0].width;
     var mapheight = data.layers[0].height;
 
-    var centerX = mapwidth * tileWidthHalf +100;
-    var centerY = 200;
+    var centerX = mapwidth * tileWidthHalf;
+    var centerY = 16;
 
     var i = 0;
 
@@ -145,5 +153,7 @@ function update () {
         player.setVelocityY(0);
         player.anims.play('turn');
     } 
+
+   
    
 }
