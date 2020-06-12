@@ -22,11 +22,8 @@ var config = {
 //instancier un nouveau jeu
 var game = new Phaser.Game(config);
 var player;
-var players = [];
 var cursors;
 var scene;
-
-
 
 
 var directions = {
@@ -42,7 +39,7 @@ var directions = {
 
 var anims = {
     idle: {
-        startFrame: 0,
+        key :  0,
         endFrame: 4,
         speed: 0.2
     },
@@ -65,6 +62,30 @@ var anims = {
         startFrame: 28,
         endFrame: 32,
         speed: 0.1
+    },
+    right:
+    {
+        startFrame: 28,
+        endFrame: 37,
+        speed : 0.5
+    },
+    left:
+    {
+        startFrame: 10,
+        endFrame: 17,
+        speed : 0.5
+    },
+    up:
+    {
+        startFrame: 1,
+        endFrame: 8,
+        speed : 0.5
+    },
+    down:
+    {
+        startFrame: 19,
+        endFrame: 26,
+        speed : 0.5
     }
 };
 
@@ -99,58 +120,9 @@ function create () {
             this.speed = 0.15;
             this.f = this.anim.startFrame;
 
-            Phaser.GameObjects.Image.call(this, scene, x, y, 'hero', this.direction.offset + this.f);
+            Phaser.GameObjects.Image.call(this, scene, x, y, 'hero');
 
             this.depth = y + 64;
-
-            scene.time.delayedCall(this.anim.speed * 1000, this.changeFrame, [], this);
-        },
-
-        changeFrame: function ()
-        {
-            this.f++;
-
-            var delay = this.anim.speed;
-
-            if (this.f === this.anim.endFrame)
-            {
-                switch (this.motion)
-                {
-                    case 'walk':
-                        this.f = this.anim.startFrame;
-                        this.frame = this.texture.get(this.direction.offset + this.f);
-                        scene.time.delayedCall(delay * 1000, this.changeFrame, [], this);
-                        break;
-
-                    case 'attack':
-                        delay = Math.random() * 2;
-                        scene.time.delayedCall(delay * 1000, this.resetAnimation, [], this);
-                        break;
-
-                    case 'idle':
-                        delay = 0.5 + Math.random();
-                        scene.time.delayedCall(delay * 1000, this.resetAnimation, [], this);
-                        break;
-
-                    case 'die':
-                        delay = 6 + Math.random() * 6;
-                        scene.time.delayedCall(delay * 1000, this.resetAnimation, [], this);
-                        break;
-                }
-            }
-            else
-            {
-                this.frame = this.texture.get(this.direction.offset + this.f);
-
-                scene.time.delayedCall(delay * 1000, this.changeFrame, [], this);
-            }
-        },
-
-        resetAnimation: function ()
-        {
-            this.f = this.anim.startFrame;
-
-            this.frame = this.texture.get(this.direction.offset + this.f);
 
             scene.time.delayedCall(this.anim.speed * 1000, this.changeFrame, [], this);
         },
@@ -224,7 +196,7 @@ function create () {
     buildMap();
     // player = this.physics.add.sprite(100,100, 'hero');
     // player.setCollideWorldBounds(true);
-    this.add.existing(new Player(this, 240, 290, 'walk', 'southEast', 100));
+    this.add.existing(new Player(this, 240, 290, 'right', 'southEast', 100));
     this.cameras.main.setSize(screenWidth, screenHeight);
 }
 
