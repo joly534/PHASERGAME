@@ -92,8 +92,9 @@ function create () {
         repeat: -1
     });
     
+    buildMap();
     player = this.physics.add.sprite(100,100, 'hero');
     player.setCollideWorldBounds(true);
-    buildMap();
+    this.add.existing(player);
     this.cameras.main.setSize(screenWidth, screenHeight);
 }
