@@ -153,49 +153,49 @@ function create () {
 
     });
     
-    // cursors = this.input.keyboard.createCursorKeys(); 
+    cursors = this.input.keyboard.createCursorKeys(); 
 
-    // this.anims.create({
-    //     key: 'turn',
-    //     frames: [ { key: 'hero', frame: 19 } ],
-    //     frameRate: 20
-    // });
+    this.anims.create({
+        key: 'turn',
+        frames: [ { key: 'hero', frame: 19 } ],
+        frameRate: 20
+    });
 
-    // //animation du joueur se déplaçant à GAUCHE
-    // this.anims.create({
-    //     key:'left',
-    //     frames: this.anims.generateFrameNumbers('hero',{start: 10,end: 17}),
-    //     frameRate : 20,
-    //     repeat: -1
-    // });
+    //animation du joueur se déplaçant à GAUCHE
+    this.anims.create({
+        key:'left',
+        frames: this.anims.generateFrameNumbers('hero',{start: 10,end: 17}),
+        frameRate : 20,
+        repeat: -1
+    });
 
-    // //animation du joueur se déplaçant à DROITE
-    // this.anims.create({
-    //     key: 'right',
-    //     frames: this.anims.generateFrameNumbers('hero', { start: 28, end: 37 }),
-    //     frameRate: 20,
-    //     repeat: -1
-    // });
+    //animation du joueur se déplaçant à DROITE
+    this.anims.create({
+        key: 'right',
+        frames: this.anims.generateFrameNumbers('hero', { start: 28, end: 37 }),
+        frameRate: 20,
+        repeat: -1
+    });
 
-    // //animation du joueur se déplaçant vers le HAUT
-    // this.anims.create({
-    //     key: 'up',
-    //     frames: this.anims.generateFrameNumbers('hero', { start: 1, end: 8 }),
-    //     frameRate: 20,
-    //     repeat: -1
-    // });
+    //animation du joueur se déplaçant vers le HAUT
+    this.anims.create({
+        key: 'up',
+        frames: this.anims.generateFrameNumbers('hero', { start: 1, end: 8 }),
+        frameRate: 20,
+        repeat: -1
+    });
 
-    // //animation du joueur se déplaçant vers le BAS
-    // this.anims.create({
-    //     key: 'down',
-    //     frames: this.anims.generateFrameNumbers('hero', { start: 19, end: 26 }),
-    //     frameRate: 20,
-    //     repeat: -1
-    // });
+    //animation du joueur se déplaçant vers le BAS
+    this.anims.create({
+        key: 'down',
+        frames: this.anims.generateFrameNumbers('hero', { start: 19, end: 26 }),
+        frameRate: 20,
+        repeat: -1
+    });
     
     buildMap();
-    // player = this.physics.add.sprite(100,100, 'hero');
-    // player.setCollideWorldBounds(true);
+    player = this.physics.add.sprite(100,100, 'hero');
+    player.setCollideWorldBounds(true);
     this.add.existing(new Player(this, 240, 290, 'right', 'southEast', 100));
     this.cameras.main.setSize(screenWidth, screenHeight);
 }
@@ -241,31 +241,31 @@ function buildMap ()
 
 function update () {    
 
-    // // action lorsque la fleche de GAUCHE est enfoncée
-    // if (cursors.left.isDown) {
-    //     player.setVelocityX(-160);
-    //     player.anims.play('left', true);   
+    // action lorsque la fleche de GAUCHE est enfoncée
+    if (cursors.left.isDown) {
+        player.setVelocityX(-160);
+        player.anims.play('left', true);   
 
-    // // action lorsque la fleche de DROITE est enfoncée
-    // } else if (cursors.right.isDown) {
-    //     player.setVelocityX(160);
-    //     player.anims.play('right', true);
+    // action lorsque la fleche de DROITE est enfoncée
+    } else if (cursors.right.isDown) {
+        player.setVelocityX(160);
+        player.anims.play('right', true);
 
-    // // action lorsque la fleche du HAUT est enfoncée
-    // } else if (cursors.up.isDown) {
-    //     player.setVelocityY(-160);
-    //     player.anims.play('up', true);
+    // action lorsque la fleche du HAUT est enfoncée
+    } else if (cursors.up.isDown) {
+        player.setVelocityY(-160);
+        player.anims.play('up', true);
 
-    // // action lorsque la fleche du BAS est enfoncée
-    // } else if (cursors.down.isDown) {
-    //     player.setVelocityY(160);
-    //     player.anims.play('down', true);
+    // action lorsque la fleche du BAS est enfoncée
+    } else if (cursors.down.isDown) {
+        player.setVelocityY(160);
+        player.anims.play('down', true);
 
-    // } else {
-    //     player.setVelocityX(0);
-    //     player.setVelocityY(0);
-    //     player.anims.play('turn');
-    // } 
+    } else {
+        player.setVelocityX(0);
+        player.setVelocityY(0);
+        player.anims.play('turn');
+    } 
 
    
    
